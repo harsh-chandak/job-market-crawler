@@ -1,0 +1,11 @@
+import 'dotenv/config';
+import { getDb, closeDb } from '../src/db.js';
+import { locationVerdict, classifyLocation } from '../src/util/location.js';
+const db = await getDb();
+const j = await db.collection('jobs').findOne({ companyToken: 'twilio', title: /Machine Learning Engineer/ });
+console.log('title      :', j.title);
+console.log('locations  :', JSON.stringify(j.locations));
+console.log('per-loc    :', j.locations.map(l => `${l} => ${classifyLocation(l)}`));
+console.log('verdict    :', JSON.stringify(locationVerdict(j.locations)));
+console.log('stored     :', JSON.stringify(j.screen.location));
+await closeDb();

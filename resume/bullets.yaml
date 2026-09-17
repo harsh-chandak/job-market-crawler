@@ -1,0 +1,283 @@
+# Sample bullet bank.
+# The real one is private. This keeps the schema so the pipeline and its
+# tests run end to end, with placeholder content in place of a real record.
+# Replace every value here with your own before using it for anything.
+
+# Resume bullet bank.
+#
+# APPROVED STRINGS. The tailoring stage selects and orders them; it never writes
+# new prose, and src/tailor.js refuses any rendered bullet not present here
+# byte-for-byte. That is the whole safety model: a fabricated employer, date or
+# metric on an application is a real problem, worse during a visa process, so it
+# is enforced in code rather than requested in a prompt.
+#
+# Curated 2026-09-10 for SDE / AI engineering roles only. Forward-deployed
+# engineering was dropped (most of those teams do not sponsor), and the pool was
+# cut from 53 bullets to the strongest 25 so selection chooses between good
+# options instead of padding. Every bullet is ONE line at the resume's size
+# (check with scripts/check-wrap.mjs) and carries a `# source:` line; every
+# number was checked against it. Example Corp's matching v2 ran on dev ahead of the
+# Oct 27 public launch, so those bullets claim what was built and measured, not
+# what students saw.
+#
+# `max_bullets` is each role's weight on the page: the current role carries the
+# most. The renderer enforces it and the selector is shown it.
+
+# One project on the page. The selector gives the slot to whichever fits the
+# posting; the crawler by default, Kafka for a streaming-heavy role.
+render:
+  max_projects: 1
+  # A second project is added only when the page still fits at 10pt or larger
+  # with nothing trimmed (renderPdf). Otherwise the page shows one.
+  fill_projects: 2
+  # A project on the page carries at least three bullets, or it is not shown.
+  min_project_bullets: 3
+
+profile:
+  name: John Doe
+  location: Somewhere, ST
+  email: john.doe@example.com
+  phone: "+1 (555) 555-0100"
+  linkedin: https://linkedin.com/in/johndoe
+  website: https://example.com
+  work_auth:
+    status: REPLACE_ME
+    needs_sponsorship: false
+
+# Not rendered (see renderResume). Kept for reference only.
+summaries:
+  swe: >-
+    Software engineer with two years of production work across LLM matching
+    systems at the platform and ERP software used by 70+ manufacturers.
+  ai: >-
+    AI engineer building LLM matching, ranking and agent systems. Python,
+    LangGraph, RAG, pgvector, FastAPI.
+
+education:
+  - school: State University
+    degree: M.S. Computer Science
+    detail: GPA 4.00/4.00
+    location: Somewhere, ST
+    dates: Aug 2024 - May 2026
+  - school: Home University
+    degree: B.Tech in Computer Engg.
+    detail: CGPA 8.52/10
+    location: Somewhere, ST
+    dates: Aug 2019 - May 2023
+
+# Concrete tools only. "Data Structures, Algorithms" and "Agile/SDLC" lines were
+# cut: every resume claims them and a reviewer reads past them.
+skills:
+  swe:
+    Languages: Python, TypeScript, JavaScript, SQL
+    Frameworks: FastAPI, Node.js, React, Next.js, REST, GraphQL
+    Cloud & DevOps: AWS (EC2, S3, Lambda, ECS), Docker, Kubernetes, Linux, CI/CD, Git
+    Data: PostgreSQL, MySQL, MongoDB, Redis, Neo4j, pgvector, Kafka
+    Security & Reliability: Authentication, Automated Testing, Sentry, Logging, TLS
+    CS Fundamentals: Data Structures, Algorithms, Object-Oriented Design, Design Patterns, Distributed Systems
+    AI Tooling: Claude Code, GitHub Copilot, LLM APIs, agentic workflows, prompt engineering
+  ai:
+    Languages: Python, TypeScript, JavaScript, SQL
+    AI / LLM: LangGraph, WhisperX, RAG, hybrid search (BM25/vector), prompt caching, OpenAI, Gemini and Claude APIs
+    AI Engineering: LLM evaluation, agentic workflows, multi-agent systems, tool use, prompt engineering
+    CS Fundamentals: Data Structures, Algorithms, Object-Oriented Design, Design Patterns, Distributed Systems
+    Frameworks: FastAPI, Node.js, React, Next.js, REST, GraphQL
+    Cloud & DevOps: AWS (EC2, S3, Lambda, ECS), Docker, Kubernetes, CI/CD, Git
+    Data: PostgreSQL, MySQL, MongoDB, Redis, Neo4j, pgvector, Kafka
+    AI Tooling: Claude Code, GitHub Copilot, LLM APIs
+
+experience:
+  - id: walnutech
+    company: Example Corp (SaaS platform)
+    role: AI/ML Software Engineer, LLM Systems
+    location: Somewhere, ST
+    dates: May 2026 - Present
+    max_bullets: 6
+    bullets:
+      - id: wal-eligibility-engine
+        text: "Replaced LLM-judged scholarship eligibility with a deterministic rules engine at 0.999 precision on 1,382 awards"
+        families: [ai, swe]
+        tags:
+          [
+            rules-engine,
+            rag,
+            hybrid-search,
+            evaluation,
+            precision,
+            llm,
+            matching,
+          ]
+      - id: wal-rerank-latency
+        text: "Cut the scholarship reranker's LLM step from 17s to 3.8s median by index-keying its scoring path"
+        families: [ai, swe]
+        tags: [llm, reranking, latency, performance, python]
+      - id: wal-rerank-cache
+        text: "Added rerank and embedding caches so repeat match requests make zero LLM calls: 6.3s to 0.15s in cutover testing"
+        families: [ai, swe]
+        tags: [llm, caching, latency, cost, embeddings]
+      - id: wal-canonicalization
+        text: "Found and fixed a canonicalization bug hiding ~25% of eligible scholarship matches, with zero regressions"
+        families: [ai, swe]
+        tags: [debugging, data-quality, recall, entity-resolution, matching]
+      - id: wal-genai-extraction
+        text: "Halved LLM extraction cost across 40,000+ scholarships by batching pages under one shared prompt"
+        families: [ai, swe]
+        tags: [llm, extraction, cost, batching, pipeline]
+      - id: wal-advisor-containment
+        text: "Isolated failures across parallel LangGraph advisors so one crashing agent no longer ended a student's chat turn"
+        families: [ai]
+        tags: [agents, langgraph, multi-agent, reliability, llm]
+      - id: wal-durable
+        text: "Stopped deploys silently killing background jobs by moving them onto a durable Postgres queue with a reconciler"
+        families: [swe, ai]
+        tags: [reliability, queues, postgres, durability, backend]
+      - id: wal-chat-outage
+        text: "Fixed a production chatbot outage where every streaming reply failed, and removed brittle Gemini fallbacks"
+        families: [ai, swe]
+        tags: [production, incident, llm, streaming, reliability]
+      - id: wal-mobile
+        text: "Made the student web app usable on phones and iPad in a 79-file change that closed 14 issues"
+        families: [swe]
+        tags: [frontend, react, nextjs, mobile, testing]
+      - id: wal-inbox-nudges
+        text: "Built deadline reminders and nudges telling students which answer would qualify them for more scholarships"
+        families: [swe, ai]
+        tags: [product, notifications, backend, matching, engagement]
+
+  - id: asu
+    company: State University
+    role: Software Engineer, AI Systems and Data Infrastructure
+    location: Somewhere, ST
+    dates: Aug 2025 - May 2026
+    # Part-time student appointment alongside the MS: ~2 years full-time
+    # equivalent in total, not 3+.
+    employment_type: part-time
+    location_note: Part-time, alongside M.S.
+    max_bullets: 4
+    bullets:
+      - id: asu-langgraph
+        text: "Built a LangGraph and WhisperX pipeline for an audio-to-image research pilot, processing 10K+ audio inputs"
+        families: [ai, swe]
+        tags: [langgraph, whisperx, llm, multi-agent, python, pipeline]
+      - id: asu-eval
+        text: "Built a 200-input scoring harness first, then halved candidates per input while malformed outputs fell ~20%"
+        families: [ai, swe]
+        tags: [llm, evaluation, quality, performance]
+      - id: asu-ingestion
+        text: "Built telemetry ingestion for 2K+ events a day with idempotency and backpressure, cutting P95 latency ~45%"
+        families: [swe, ai]
+        tags: [event-driven, idempotency, latency, telemetry, distributed]
+      - id: asu-concurrency
+        text: "Added locking and idempotency so interrupted or retried workflow runs could not double-write"
+        families: [swe, ai]
+        tags: [concurrency, idempotency, distributed, correctness]
+      - id: asu-recovery
+        text: "Added retry and recovery for recurring model failures, so one bad generation no longer lost a whole run"
+        families: [ai, swe]
+        tags: [reliability, llm, retry, failure-handling]
+
+  - id: neuromonk
+    company: Midsize ERP Co.
+    role: Software Engineer, Full-Stack and Product
+    location: Somewhere, ST
+    dates: Jan 2023 - Jun 2024
+    # 18 months full-time: the longest role, weighted to match.
+    max_bullets: 6
+    # The candidate's floor for this role: "at least 5-6, it was a big job".
+    min_bullets: 5
+    bullets:
+      - id: nm-accounting
+        text: "Rebuilt the accounting model for interstate GST and tax withholding; errors hit zero, subscriptions grew 30% next quarter"
+        families: [swe, ai]
+        tags: [data-modeling, correctness, domain, impact]
+      - id: nm-erp-ownership
+        text: "Owned four ERP modules used by 70+ manufacturing clients, serving 20K+ API requests a day"
+        families: [swe, ai]
+        tags: [erp, ownership, multi-tenant, domain, scale]
+      - id: nm-scale
+        text: "Cut dashboard load from 4-5s to under 2s by replacing per-product queries with joins and per-tenant caching"
+        families: [swe, ai]
+        tags: [performance, sql, redis, caching, backend]
+      - id: nm-migrations
+        text: "Ran live schema migrations in reversible stages with zero downtime for clients whose plants run on the ERP"
+        families: [swe, ai]
+        tags: [operations, migrations, reliability, postgres]
+      - id: nm-payments-named
+        text: "Integrated 5 payment gateways (Razorpay, CCAvenue, Juspay, PayU, PayPal) with idempotent retries"
+        families: [swe, ai]
+        tags: [payments, idempotency, reliability, integrations]
+      - id: nm-statutory
+        text: "Automated e-way bills and tax filing inside the ERP, replacing manual work on government portals"
+        families: [swe, ai]
+        tags: [integrations, domain, erp, automation]
+      - id: nm-workflows
+        text: "Modeled each manufacturer's configurable production workflow into one multi-tenant data model"
+        families: [swe, ai]
+        tags: [data-modeling, multi-tenant, erp, architecture, domain]
+      - id: nm-concurrency
+        text: "Prevented race conditions in concurrent ERP transactions from corrupting client data"
+        families: [swe, ai]
+        tags: [concurrency, transactions, correctness, backend]
+
+projects:
+  - id: jobhunt
+    name: Job Market Crawler & LLM Ranker
+    stack: Node.js, MongoDB, Playwright, Claude
+    max_bullets: 3
+    bullets:
+      - id: prj-jobhunt-crawler
+        text: "Built a crawler over 3,500 company career boards on 9 ATS platforms, skipping 86% of 1M+ polls as unchanged"
+        families: [swe, ai]
+        tags: [crawler, distributed, http, etag, caching, scheduling, node, mongodb]
+      - id: prj-jobhunt-latency
+        text: "Surfaced a quarter of new Greenhouse and Ashby postings within 17 minutes of going live, measured on 850 roles"
+        families: [swe, ai]
+        tags: [latency, freshness, measurement, polling, crawler]
+      - id: prj-jobhunt-agentic
+        text: "Collapsed 1,046 duplicate listings of the same requisition and ranked postings deterministically before any Claude call"
+        families: [ai, swe]
+        tags:
+          [agentic, llm, orchestration, playwright, mongodb, node, scheduling]
+      - id: prj-jobhunt-llm-cost
+        text: "Cut LLM cost per document 74% through prompt caching and disabling reasoning on a selection step"
+        families: [ai, swe]
+        tags: [llm, cost, prompt-caching, tokens, measurement, performance]
+        requires: [llm, token, cost, inference, prompt, model, ai, latency]
+      - id: prj-jobhunt-guardrail
+        text: "Blocked hallucinated output by rejecting any generated line not found verbatim in a verified source"
+        families: [ai, swe]
+        tags: [llm, safety, verification, hallucination, guardrails, testing]
+        requires:
+          [
+            hallucination,
+            guardrail,
+            safety,
+            evaluation,
+            eval,
+            trust,
+            verification,
+            accuracy,
+            reliability,
+            llm,
+          ]
+  - id: kafka-neo4j
+    name: Kafka to Neo4j Streaming Pipeline
+    stack: Kafka, Neo4j, Docker, Kubernetes, Python
+    # Graded course project. 5K events/min and sub-second latency were pass
+    # conditions verified as test cases, so the bullet says "sustaining" and
+    # never "peaked at" or "scaled to".
+    context: course project (graded)
+    max_bullets: 3
+    bullets:
+      - id: prj-kafka-swe
+        text: "Built a Kafka streaming pipeline sustaining 5K events/min at sub-second latency in load tests"
+        families: [swe, ai]
+        tags: [kafka, streaming, backpressure, performance, distributed]
+      - id: prj-kafka-backpressure
+        text: "Designed backpressure control to keep ingestion stable under high throughput"
+        families: [swe, ai]
+        tags: [kafka, backpressure, streaming, reliability, distributed]
+      - id: prj-kafka-graph
+        text: "Modeled high-cardinality event relationships as a Neo4j graph and deployed the stack on Docker and Kubernetes"
+        families: [swe, ai]
+        tags: [neo4j, graph, data-modeling, docker, kubernetes]

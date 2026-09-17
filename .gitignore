@@ -1,0 +1,25 @@
+node_modules/
+.env
+.env.local
+# Backups written by scripts/use-anthropic.mjs. These are byte copies of .env and
+# therefore contain the live API key — .gitignore listing `.env` alone did not
+# cover them, and one did reach a commit.
+.env.bak
+.env.bak.*
+seed/out/
+data/
+*.log
+.DS_Store
+logs/
+.jobhunt.lock
+batch.json
+scores.json
+.review-token
+.browser-profile/
+
+# Exported mail — personal correspondence, never committed.
+inbox/
+
+# Rendered resumes and application screenshots. These contain his name, phone,
+# address and the employers he applied to. Never publishable.
+out/

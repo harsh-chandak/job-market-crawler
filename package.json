@@ -1,0 +1,42 @@
+{
+  "name": "job-hunt",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Single-user job ingestion pipeline: tiered ATS polling, freshness tracking, latency SLA.",
+  "scripts": {
+    "seed:discover": "node seed/discover-companies.mjs",
+    "seed:import": "node scripts/import-companies.mjs",
+    "poll": "node scripts/poll-once.mjs",
+    "poll:loop": "node scripts/poll-loop.mjs",
+    "stats": "node scripts/stats.mjs",
+    "test": "node scripts/test-filter.mjs && node scripts/test-prerank.mjs && node scripts/test-ledger.mjs && node scripts/test-claude-code.mjs && node scripts/test-ai-steps.mjs && node scripts/test-warm-path.mjs && node scripts/test-themuse.mjs && node scripts/test-status-email.mjs && node scripts/test-burst.mjs && node scripts/test-sponsorship.mjs && node scripts/test-workday.mjs && node scripts/test-smartrecruiters.mjs && node scripts/test-bytedance.mjs && node scripts/test-email.mjs && node scripts/test-proprietary.mjs && node scripts/test-bofa.mjs && node scripts/test-llm.mjs",
+    "verify": "node scripts/verify-consistency.mjs",
+    "enrich": "node scripts/enrich-sponsorship.mjs",
+    "shortlist": "node scripts/shortlist.mjs",
+    "retier": "node scripts/retier.mjs",
+    "seed:workday": "node scripts/verify-workday.mjs",
+    "seed:proprietary": "node scripts/register-proprietary.mjs",
+    "seed:expand": "node scripts/expand-west-coast.mjs",
+    "score": "node scripts/score-jobs.mjs",
+    "tailor": "node scripts/tailor-job.mjs",
+    "bench:controls": "node scripts/bench-controls.mjs",
+    "notify": "node scripts/notify.mjs",
+    "approve": "node scripts/approve-loop.mjs",
+    "start": "node scripts/run.mjs",
+    "targets": "node scripts/set-targets.mjs",
+    "submit": "node scripts/submit-queue.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.115.0",
+    "dotenv": "^17.2.3",
+    "mongodb": "^6.20.0",
+    "yaml": "^2.9.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

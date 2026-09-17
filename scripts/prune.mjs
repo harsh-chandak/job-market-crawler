@@ -1,0 +1,13 @@
+import 'dotenv/config';
+import { getDb, closeDb } from '../src/db.js';
+const db = await getDb();
+const jobs = db.collection('jobs');
+const before = await jobs.countDocuments({});
+const r = await jobs.deleteMany({ status: 'screened_out' });
+const after = await jobs.countDocuments({});
+const stats = await db.command({ collStats: 'jobs' }).catch(() => null);
+console.log(`  before        ${String(before).padStart(7)}`);
+console.log(`  deleted       ${String(r.deletedCount).padStart(7)}  (screened_out)`);
+console.log(`  remaining     ${String(after).padStart(7)}`);
+if (stats) console.log(`  storage       ${(stats.storageSize / 1024 / 1024).toFixed(1)} MB`);
+await closeDb();

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd job for the polling loop.
+
+  Installed to ~/Library/LaunchAgents/ by ops/install.sh, which rewrites
+  __HOME__ and __NODE__ for this machine. A LaunchAgent (not a LaunchDaemon)
+  because the job needs the login keychain and the user's environment, and
+  because nothing here should run as root.
+
+  KeepAlive restarts the loop if it dies. RunAtLoad starts it at login. Neither
+  keeps the Mac awake — see ops/install.sh for why that is handled separately.
+-->
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.harsh.jobhunt</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/usr/bin/caffeinate</string>
+      <!-- -i prevents idle sleep, -s prevents system sleep while on AC power.
+           Without this the loop stops the moment the display sleeps, which is
+           exactly the 8-10am window it exists to cover. -->
+      <string>-is</string>
+      <string>__NODE__</string>
+      <string>__HOME__/Desktop/job-hunt/scripts/run.mjs</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>__HOME__/Desktop/job-hunt</string>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+      <!-- Restart on crash, but not on a clean exit — a deliberate stop should
+           stay stopped. -->
+      <key>SuccessfulExit</key>
+      <false/>
+    </dict>
+
+    <!-- If it crash-loops, back off rather than hammering the ATS endpoints. -->
+    <key>ThrottleInterval</key>
+    <integer>60</integer>
+
+    <key>StandardOutPath</key>
+    <string>__HOME__/Desktop/job-hunt/logs/jobhunt.log</string>
+    <key>StandardErrorPath</key>
+    <string>__HOME__/Desktop/job-hunt/logs/jobhunt.err.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+      <key>NODE_ENV</key>
+      <string>production</string>
+    </dict>
+  </dict>
+</plist>
