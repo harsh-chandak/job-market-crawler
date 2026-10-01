@@ -6,10 +6,11 @@
 
 # Job Market Crawler and LLM Ranker
 
-[![Play the fifteen-second tour: polls 3,500 ATS boards directly, 86% of over a million polls come back 304 Not Modified, and the screen is deterministic](assets/brag-poster.jpg)](https://github.com/harsh-chandak/job-market-crawler/blob/main/assets/brag.mp4)
+[![Fifteen seconds: polls 3,500 ATS boards directly, 86% of over a million polls come back 304 Not Modified, and the screen is deterministic](assets/brag.gif)](https://github.com/harsh-chandak/job-market-crawler/blob/main/assets/brag.mp4)
 
-<sub>▶ Fifteen seconds on why it polls the boards itself. GitHub strips `<video>`
-from READMEs, so the poster above links to the player.</sub>
+<sub>Plays above. GitHub strips `<video>` from READMEs, so this is the silent
+loop; [the full video](https://github.com/harsh-chandak/job-market-crawler/blob/main/assets/brag.mp4)
+has sound.</sub>
 
 A single-user job pipeline. It polls ATS boards directly, screens
 deterministically, ranks before it ever calls a model, and measures its own
