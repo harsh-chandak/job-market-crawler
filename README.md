@@ -1,3 +1,9 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/card-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/card-light.png">
+  <img src="assets/card-light.png" alt="Job Market Crawler. Polls ATS boards directly and ranks every posting deterministically before it spends a single model call. 3,500 ATS boards polled. 86% of over a million polls skipped as unchanged. Zero model calls to screen. Built with Node.js, MongoDB, conditional GET and Typst.">
+</picture>
+
 # Job Market Crawler and LLM Ranker
 
 A single-user job pipeline. It polls ATS boards directly, screens
