@@ -170,3 +170,7 @@ deliberately dropped — there is one user.
 exclusion list was dead code), ~10 duplicated entries, and substring INCLUDE
 matching that let `'ml'` match "HTML/CSS Designer". Regression tests for all
 three are in `scripts/test-filter.mjs`.
+
+## License
+
+MIT © Harsh N. Chandak

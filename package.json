@@ -2,6 +2,8 @@
   "name": "job-hunt",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "Harsh N. Chandak",
   "type": "module",
   "description": "Single-user job ingestion pipeline: tiered ATS polling, freshness tracking, latency SLA.",
   "scripts": {
